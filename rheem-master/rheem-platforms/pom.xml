@@ -21,6 +21,7 @@
         <module>rheem-giraph</module>
         <module>rheem-flink</module>
         <module>rheem-platforms</module>
+        <module>rheem-MPI</module>
     </modules>
 
 
