@@ -6,9 +6,11 @@ import org.qcri.rheem.core.api.Job;
 import org.qcri.rheem.core.optimizer.OptimizationContext;
 import org.qcri.rheem.core.plan.executionplan.ExecutionStage;
 import org.qcri.rheem.core.plan.executionplan.ExecutionTask;
+import org.qcri.rheem.core.plan.rheemplan.ExecutionOperator;
 import org.qcri.rheem.core.platform.*;
 import org.qcri.rheem.core.platform.lineage.ExecutionLineageNode;
 import org.qcri.rheem.core.util.Tuple;
+import zxp.mpi.operators.mpiExecutionOperator;
 import zxp.mpi.platform.mpiPlatform;
 
 import java.util.*;
@@ -40,7 +42,8 @@ public class mpiExecutor extends ExecutorTemplate {
             this.execute(task,optimizationContext,executionState);
             executedTasks.add(task);
             Arrays.stream(task.getOutputChannels()).flatMap(channel -> channel.getConsumers().stream()).filter(consumer->consumer.getStage() == stage).forEach(scheduledTasks::add);
-            //这句没明白
+            //test
+
         }
     }
 
@@ -51,16 +54,16 @@ public class mpiExecutor extends ExecutorTemplate {
             inputChannelInstances[i] = executionState.getChannelInstance(task.getInputChannel(i));
         }
 
-        final OptimizationContext.OperatorContext operatorContext = optimizationContext.getOperatorContext(graphChiExecutionOperator);//第一句注释上
+        final OptimizationContext.OperatorContext operatorContext = optimizationContext.getOperatorContext(mpiExecutionOperator);//第一句注释上
         ChannelInstance[] outputChannelInstances = new ChannelInstance[task.getNumOuputChannels()];
 
         for (int i = 0; i < outputChannelInstances.length; i++) {
-            outputChannelInstances[i] = task.getOutputChannel(i).createInstance(this, operatorContext, i);//this参数代表什么？
+            outputChannelInstances[i] = task.getOutputChannel(i).createInstance(this, operatorContext, i);//this参数
         }
 
         long startTime = System.currentTimeMillis();
         final Tuple<Collection<ExecutionLineageNode>, Collection<ChannelInstance>> results =
-                graphChiExecutionOperator.execute(inputChannelInstances, outputChannelInstances, operatorContext);//第一句注释
+                mpiExecutionOperator.execute(inputChannelInstances, outputChannelInstances, operatorContext);//第一句注释
         long endTime = System.currentTimeMillis();
 
 

@@ -30,7 +30,6 @@ public class mpiPlugin implements Plugin {
 
     @Override
     public void setProperties(Configuration configuration) {
-        //等待完成
-        return 缺少配置文件;
+
     }
 }

@@ -12,12 +12,12 @@
     <artifactId>rheem-MPI</artifactId>
 
     <dependencies>
-    <dependency>
-        <groupId>mpj</groupId>
-        <artifactId>mpj</artifactId>
-        <version>0.44</version>
-        <scope>provided</scope>
-    </dependency>
+        <dependency>
+            <groupId>mpj</groupId>
+            <artifactId>mpj</artifactId>
+            <version>0.44</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.qcri.rheem</groupId>
             <artifactId>rheem-core</artifactId>
